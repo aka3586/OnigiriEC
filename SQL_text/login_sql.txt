@@ -1,0 +1,58 @@
+-- ログインを試すときはこれをsqlアドミンに入れてから使う
+
+create database corporate_db;
+
+use corporate_db;
+
+create table users(user_id int primary key auto_increment,name varchar(256),email varchar(256),password varchar(64),tel varchar(13),created_at datetime);
+
+
+-- ordersテーブルの作成
+
+create table orders(order_id int primary key auto_increment,user_id int not null,address varchar(256),total int, created_at datetime);
+
+-- order_productsテーブルの作成
+
+create table order_products(order_id int not null,item_id int,item_name varchar(64),num int,price int);
+
+-- itemsテーブルの作成
+CREATE TABLE onigiri_items (`item_id` int PRIMARY key,`item_name` varchar(64) not null,`price` integer);
+
+insert into onigiri_items (item_id, item_name,price) values(1, '塩',300);	
+insert into onigiri_items (item_id, item_name,price) values(2, '焼き海苔',300);
+insert into onigiri_items (item_id, item_name,price) values(3,'味付け海苔',300);
+insert into onigiri_items (item_id, item_name,price) values(4, 'ごま',300);
+insert into onigiri_items (item_id, item_name,price) values(5, 'ごま鮭',300);	
+insert into onigiri_items (item_id, item_name,price) values(6, '炊き込み',300);	
+insert into onigiri_items (item_id, item_name,price) values(7, '豆',300);	
+insert into onigiri_items (item_id, item_name,price) values(8, '梅干し',300);	
+insert into onigiri_items (item_id, item_name,price) values(9, '梅ゆかり',300);	
+insert into onigiri_items (item_id, item_name,price) values(10, 'わかめ',300);
+insert into onigiri_items (item_id, item_name,price) values(11, '赤飯',300);
+insert into onigiri_items (item_id, item_name,price) values(12, 'かつお節',300);	
+insert into onigiri_items (item_id, item_name,price) values(13, '鮭',300);
+insert into onigiri_items (item_id, item_name,price) values(14, 'ツナマヨ',300);	
+insert into onigiri_items (item_id, item_name,price) values(15, 'たらこ',300);
+insert into onigiri_items (item_id, item_name,price) values(16, '昆布',300);
+insert into onigiri_items (item_id, item_name,price) values(17, 'いくら',500);	
+insert into onigiri_items (item_id, item_name,price) values(18, '煮卵',400);
+insert into onigiri_items (item_id, item_name,price) values(19, '天むす',600);
+insert into onigiri_items (item_id, item_name,price) values(20, '焼きおにぎり',300);	
+insert into onigiri_items (item_id, item_name,price) values(21, 'とろろ昆布',300);
+
+
+ALTER TABLE orders
+ADD CONSTRAINT fk_user_id
+FOREIGN KEY (user_id)
+REFERENCES users (user_id);
+
+ALTER TABLE order_products
+ADD CONSTRAINT fk_order_id
+FOREIGN KEY (order_id)
+REFERENCES orders (order_id);
+
+ALTER TABLE order_products
+ADD CONSTRAINT fk_item_id
+FOREIGN KEY (item_id)
+REFERENCES onigiri_items(item_id);
+
